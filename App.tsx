@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
+import Animations from './src/screens/Animations'
 
 const App = () => {
-  return <></>;
-};
+  return <Animations />
+}
 
-export default App;
+export default App
