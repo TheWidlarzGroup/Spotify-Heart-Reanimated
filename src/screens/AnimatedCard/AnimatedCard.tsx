@@ -47,9 +47,12 @@ export const AnimatedCard = () => {
     },
     onEnd: ({ velocityX, velocityY }) => {
       // ustalamy dest - czyli miejsce docelowe poprzez przekazując do funkcji snapPoint (jest odpowiedzialna za wyznaczenie miejsca docelowego)
-      // najpierw aktualnej pozycji palca-myszki, prędkości pobranejz  funkcji, oraz wcześniej przygotowanych punktów docelowych
+      // najpierw aktualnej pozycji palca-myszki, prędkości pobranej z funkcji, oraz wcześniej przygotowanych punktów docelowych
+      // Mamy 3 punkty docelowe i obiekt po puszczeniu zawsze dąży najbliższej z ustalonych dla niego pozycji
       const dest = snapPoint(x.value, velocityX, SNAP_POINTS)
+      // przekazujemy ustalone wyżej pozycje do wartości w osi X
       x.value = withSpring(dest, { velocity: velocityX })
+      // ustawiamy pozycję w osi Y na 0, zeby obiekt zawsze po puszczeniu lądował w punkcie 0 na osi Y
       y.value = withSpring(0, { velocity: velocityY })
     },
   })
