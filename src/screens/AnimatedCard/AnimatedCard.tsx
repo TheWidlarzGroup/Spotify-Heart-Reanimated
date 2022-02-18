@@ -13,7 +13,7 @@ import { snapPoint } from 'react-native-redash'
 const { width: screenWidth } = Dimensions.get('window')
 
 const CARD_WIDTH = screenWidth - 128
-const side = (screenWidth - CARD_WIDTH) / 2
+const side = (screenWidth + CARD_WIDTH) / 2
 // SNAP_POINTS - wyznaczamy punkty zatrzymania karty w osi (w tym przypadku osi X)
 // arrajka to - [odległość od środka na lewo, środek, odległość od środka na prawo] - tutaj podajemy 3 punkty, ale może ich być dowolna ilość,
 // a środek może być wyznaczony w dowolnym punkcie
@@ -59,6 +59,7 @@ export const AnimatedCard = () => {
 
   // w funkcji poniżej przekazujemy aktualne wartości x i y do funkcji transform, która aktualizuje pozycje w pionie i poziomie. Dalej przekazujemy je do Animated.View które odpowiednio je odczytuje
   const animatedStyle = useAnimatedStyle(() => ({
+    // w transformie przekazujemy wszystkie wartości które chcemy zmienić (animować)
     transform: [{ translateX: x.value }, { translateY: y.value }],
   }))
 
