@@ -6,12 +6,13 @@ interface Props {
   width: number
   height: number
   zIndex: number
+  heartRef?: any
   animatedProps?: Partial<AnimateProps<PathProps>>
 }
 
 const AnimatedPath = Animated.createAnimatedComponent(Path)
 
-export const Heart = ({ width, height, zIndex, animatedProps }: Props) => {
+export const Heart = ({ width, height, zIndex, heartRef, animatedProps }: Props) => {
   return (
     <Svg
       width={width}
