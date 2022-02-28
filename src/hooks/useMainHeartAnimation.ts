@@ -8,7 +8,7 @@ import {
 
 export const useMainHeartAnimation = (bgColor: string) => {
   const progress = useDerivedValue(() => {
-    return withTiming(bgColor === 'white' ? 1 : 0, {
+    return withTiming(!bgColor ? 1 : 0, {
       duration: 400,
       easing: Easing.bezier(0.65, 0, 0.35, 1).factory(),
     })
