@@ -43,7 +43,7 @@ export const HeartButton = ({
         },
         () => {
           heartAnimation.value = withTiming(1, {
-            duration: 3900,
+            duration: 1600,
             easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
           })
         }

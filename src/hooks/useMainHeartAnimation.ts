@@ -18,7 +18,7 @@ export const useMainHeartAnimation = (bgColor: string) => {
     const fill = interpolateColor(
       progress.value,
       [0, 1],
-      ['rgba(126, 218, 185, 1)', 'rgba(255, 255, 255,1)'],
+      ['rgba(29, 185, 84, 1)', 'rgba(0, 0, 0, 1)'],
       'RGB'
     )
     return { fill: fill }
