@@ -1,9 +1,10 @@
-import { useAnimatedStyle } from 'react-native-reanimated'
+import { interpolate, useAnimatedStyle } from 'react-native-reanimated'
 
 export const UseFlyingHeartAnimatedStyle = (
   finalCoords: any,
   startCoords: any,
-  heartAnimation: any
+  heartAnimation: any,
+  index: number
 ) => {
   const calcBezier = (interpolatedValue: any, p0: any, p1: any, p2: any) => {
     'worklet'
@@ -21,11 +22,15 @@ export const UseFlyingHeartAnimatedStyle = (
 
     const translateX = calcBezier(heartAnimation.value, ball.x, cart.x, cart.x)
     const translateY = calcBezier(heartAnimation.value, ball.y, ball.y, cart.y)
-    // const opacity = withTiming(heartAnimation.value)
+    const opacity = interpolate(
+      heartAnimation.value,
+      [0, 0.2, 1, 0, 0, 0, 0],
+      [0.2, 0.4, 0.6, 0.2, 0.2, 0.2, 0.2]
+    )
 
     return {
       transform: [{ translateX }, { translateY }],
-      // opacity: opacity,
+      opacity: opacity,
     }
   })
 

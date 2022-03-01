@@ -1,12 +1,15 @@
 import {
   Easing,
+  interpolate,
   interpolateColor,
   useAnimatedProps,
+  useAnimatedStyle,
   useDerivedValue,
+  useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
 
-export const useMainHeartAnimation = (bgColor: string) => {
+export const useMainHeartAnimation = (bgColor: string, heartScale: any) => {
   const progress = useDerivedValue(() => {
     return withTiming(!bgColor ? 1 : 0, {
       duration: 400,
@@ -24,5 +27,11 @@ export const useMainHeartAnimation = (bgColor: string) => {
     return { fill: fill }
   })
 
-  return { animatedProps }
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: heartScale.value }],
+    }
+  })
+
+  return { animatedProps, animatedStyle }
 }
