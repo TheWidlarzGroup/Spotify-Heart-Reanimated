@@ -1,11 +1,5 @@
-import React from 'react'
-import {
-  Easing,
-  useSharedValue,
-  withSequence,
-  withSpring,
-  withTiming,
-} from 'react-native-reanimated'
+import React, { useRef } from 'react'
+import { useSharedValue } from 'react-native-reanimated'
 import {
   ScaleViewContainer,
   ShakeViewContainer,
@@ -14,84 +8,47 @@ import {
   StyledSvg,
 } from './HeartButton.styled'
 import { useMainHeartAnimation } from '../../../../hooks/useMainHeartAnimation'
+import { useHeartPress } from '../../onHeartPress'
 
 interface Props {
-  heartRef: any
   isBgColored: any
   setIsBgColored: any
   startCoords: any
   heartAnimation: any
-  circleScale: any
-  circleScale2: any
+  bigCircleScale: any
+  smallCircleScale: any
   circleOpacity: any
 }
 
 export const HeartButton = ({
-  heartRef,
   isBgColored,
   setIsBgColored,
   startCoords,
   heartAnimation,
-  circleScale,
-  circleScale2,
+  bigCircleScale,
+  smallCircleScale,
   circleOpacity,
 }: Props) => {
+  const heartRef = useRef<any>(null)
   const heartScale = useSharedValue(1)
   const { animatedProps, scaleAnimatedStyle, shakeAnimatedStyle } = useMainHeartAnimation(
     isBgColored,
     heartScale
   )
-
-  const setHeartPosition = (x: any, y: any) => {
-    startCoords.value = { x, y }
-  }
-
-  const handleHeartClick = () => {
-    isBgColored ? setIsBgColored(false) : setIsBgColored(true)
-    heartRef.current.measure((px: any, py: any) => {
-      if (!isBgColored) {
-        setHeartPosition(px, py)
-
-        heartAnimation.value = withTiming(1, {
-          duration: 1000,
-          easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
-        })
-
-        circleScale.value = withTiming(4, {
-          duration: 700,
-          easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
-        })
-
-        circleScale2.value = withTiming(3, {
-          duration: 700,
-          easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
-        })
-
-        circleOpacity.value = withTiming(0, {
-          duration: 700,
-          easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
-        })
-
-        heartScale.value = withSequence(
-          withTiming(0.8, { duration: 200 }),
-          withSpring(1, { damping: 0.8, mass: 0.2 })
-        )
-      } else {
-        setHeartPosition(0, 0)
-        heartAnimation.value = 0
-        circleScale.value = 0
-        circleScale2.value = 0
-        circleOpacity.value = 1
-        heartScale.value = withSequence(
-          withTiming(0.8, { duration: 200 }),
-          withSpring(1, { damping: 0.8, mass: 0.2 })
-        )
-      }
-    })
-  }
+  const { heartPress } = useHeartPress(
+    isBgColored,
+    setIsBgColored,
+    heartRef,
+    heartAnimation,
+    bigCircleScale,
+    smallCircleScale,
+    circleOpacity,
+    heartScale,
+    startCoords
+  )
 
   return (
-    <StyledHeartButton onPress={handleHeartClick}>
+    <StyledHeartButton onPress={heartPress}>
       <ShakeViewContainer ref={heartRef} style={[shakeAnimatedStyle]}>
         <ScaleViewContainer ref={heartRef} style={[scaleAnimatedStyle]}>
           <StyledSvg>

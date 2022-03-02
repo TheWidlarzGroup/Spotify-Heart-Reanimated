@@ -1,14 +1,16 @@
 import styled from 'styled-components/native'
 import Animated from 'react-native-reanimated'
 
-export const AnimatedViewContainer = styled(Animated.View)`
-  width: 70px;
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+interface Props {
+  borderRadius: number
+}
+
+export const AnimatedCircle = styled(Animated.View)<Props>`
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  border-width: ${(props) => props.borderRadius}px;
+  border-color: #1db954;
   position: absolute;
-  z-index: 0;
-  bottom: 30px;
-  background-color: pink;
+  bottom: 43px;
 `

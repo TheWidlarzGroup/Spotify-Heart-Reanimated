@@ -9,7 +9,7 @@ interface Props {
   heartAnimation: any
   minValueX: number
   maxValueX: number
-  index: number
+  index?: number
   heartRendersNumber: number
 }
 
@@ -22,7 +22,7 @@ export const SingleFlyingHeart = ({
   heartRendersNumber,
 }: Props) => {
   const randomXCoord = drawRandomNumberInRange(minValueX, maxValueX)
-  const randomYCoord = drawRandomNumberInRange(-120, -250)
+  const randomYCoord = drawRandomNumberInRange(-120, -200)
   const finalCoords = useSharedValue({ x: randomXCoord, y: randomYCoord })
   const heartSize = drawRandomNumberInRange(40, 50)
 
