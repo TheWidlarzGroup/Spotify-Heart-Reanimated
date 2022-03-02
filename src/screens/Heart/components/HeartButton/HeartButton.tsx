@@ -8,7 +8,7 @@ import {
   StyledSvg,
 } from './HeartButton.styled'
 import { useMainHeartAnimation } from '../../../../hooks/useMainHeartAnimation'
-import { useHeartPress } from '../../onHeartPress'
+import { useHeartPress } from '../../../../hooks/useHeartPress'
 
 interface Props {
   isBgColored: any
