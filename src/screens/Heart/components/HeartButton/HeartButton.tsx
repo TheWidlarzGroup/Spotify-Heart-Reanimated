@@ -7,7 +7,8 @@ import {
   withTiming,
 } from 'react-native-reanimated'
 import {
-  AnimatedViewContainer,
+  ScaleViewContainer,
+  ShakeViewContainer,
   StyledAnimatedPath,
   StyledHeartButton,
   StyledSvg,
@@ -30,7 +31,10 @@ export const HeartButton = ({
   heartAnimation,
 }: Props) => {
   const heartScale = useSharedValue(1)
-  const { animatedProps, animatedStyle } = useMainHeartAnimation(isBgColored, heartScale)
+  const { animatedProps, animatedStyle, animatedStyle2 } = useMainHeartAnimation(
+    isBgColored,
+    heartScale
+  )
 
   const setHeartPosition = (x: any, y: any) => {
     startCoords.value = { x, y }
@@ -39,27 +43,38 @@ export const HeartButton = ({
   const handleHeartClick = () => {
     isBgColored ? setIsBgColored(false) : setIsBgColored(true)
     heartRef.current.measure((px: any, py: any) => {
-      setHeartPosition(px, py)
+      if (!isBgColored) {
+        setHeartPosition(px, py)
 
-      heartAnimation.value = withTiming(1, {
-        duration: 4300,
-        easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
-      })
+        heartAnimation.value = withTiming(1, {
+          duration: 1100,
+          easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
+        })
 
-      heartScale.value = withSequence(
-        withTiming(0.8, { duration: 200 }),
-        withSpring(1, { damping: 0.8, mass: 0.2 })
-      )
+        heartScale.value = withSequence(
+          withTiming(0.8, { duration: 200 }),
+          withSpring(1, { damping: 0.8, mass: 0.2 })
+        )
+      } else {
+        setHeartPosition(0, 0)
+        heartAnimation.value = 0
+        heartScale.value = withSequence(
+          withTiming(0.8, { duration: 200 }),
+          withSpring(1, { damping: 0.8, mass: 0.2 })
+        )
+      }
     })
   }
 
   return (
     <StyledHeartButton onPress={handleHeartClick}>
-      <AnimatedViewContainer ref={heartRef} style={[animatedStyle]}>
-        <StyledSvg>
-          <StyledAnimatedPath animatedProps={animatedProps} />
-        </StyledSvg>
-      </AnimatedViewContainer>
+      <ShakeViewContainer ref={heartRef} style={[animatedStyle2]}>
+        <ScaleViewContainer ref={heartRef} style={[animatedStyle]}>
+          <StyledSvg>
+            <StyledAnimatedPath animatedProps={animatedProps} />
+          </StyledSvg>
+        </ScaleViewContainer>
+      </ShakeViewContainer>
     </StyledHeartButton>
   )
 }

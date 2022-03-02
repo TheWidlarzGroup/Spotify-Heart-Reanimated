@@ -18,12 +18,21 @@ export const StyledHeartButton = styled(TouchableOpacity).attrs(() => ({
   bottom: 30px;
 `
 
-export const AnimatedViewContainer = styled(Animated.View)`
+export const ScaleViewContainer = styled(Animated.View)`
   width: 70px;
   height: 70px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+`
+
+export const ShakeViewContainer = styled(Animated.View)`
+  width: 70px;
+  display: flex;
+  align-items: center;
+  height: 140px;
+  justify-content: flex-start;
+  bottom: -70px;
 `
 
 export const StyledSvg = styled(Svg).attrs({

@@ -5,11 +5,10 @@ import {
   useAnimatedProps,
   useAnimatedStyle,
   useDerivedValue,
-  useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
 
-export const useMainHeartAnimation = (bgColor: string, heartScale: any) => {
+export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
   const progress = useDerivedValue(() => {
     return withTiming(!bgColor ? 1 : 0, {
       duration: 400,
@@ -28,10 +27,33 @@ export const useMainHeartAnimation = (bgColor: string, heartScale: any) => {
   })
 
   const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: heartScale.value }],
+    if (bgColor) {
+      return {
+        transform: [{ scale: heartScale.value }],
+      }
+    } else {
+      return {}
     }
   })
 
-  return { animatedProps, animatedStyle }
+  const animatedStyle2 = useAnimatedStyle(() => {
+    if (!bgColor) {
+      return {
+        transform: [
+          {
+            rotate:
+              interpolate(
+                heartScale.value,
+                [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4],
+                [0, -25, 0, 25, 0, 25, 0, -25, 0]
+              ) + 'deg',
+          },
+        ],
+      }
+    } else {
+      return {}
+    }
+  })
+
+  return { animatedProps, animatedStyle, animatedStyle2 }
 }

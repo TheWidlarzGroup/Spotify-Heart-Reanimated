@@ -1,10 +1,11 @@
-import { interpolate, useAnimatedStyle } from 'react-native-reanimated'
+import { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated'
 
 export const UseFlyingHeartAnimatedStyle = (
   finalCoords: any,
   startCoords: any,
   heartAnimation: any,
-  index: number
+  index: number,
+  heartRendersNumber: number
 ) => {
   const calcBezier = (interpolatedValue: any, p0: any, p1: any, p2: any) => {
     'worklet'
@@ -16,20 +17,40 @@ export const UseFlyingHeartAnimatedStyle = (
     )
   }
 
+  const rangeChunk = 1 / (heartRendersNumber + 1)
+
   const heartStyle = useAnimatedStyle(() => {
     const cart = finalCoords.value
     const ball = startCoords.value
 
-    const translateX = calcBezier(heartAnimation.value, ball.x, cart.x, cart.x)
-    const translateY = calcBezier(heartAnimation.value, ball.y, ball.y, cart.y)
+    const animatedPositionY = interpolate(
+      heartAnimation.value,
+      [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)],
+      [0, 0.5, 0.8],
+      { extrapolateLeft: Extrapolation.CLAMP, extrapolateRight: Extrapolation.CLAMP }
+    )
+
+    const translateX = calcBezier(animatedPositionY, ball.x, cart.x, cart.x)
+    const translateY = calcBezier(animatedPositionY, ball.y, ball.y, cart.y)
+    // const opacity = interpolate(
+    //   heartAnimation.value,
+    //   [0, 0.2, 0.2, 0, 0, 0, 0],
+    //   [0.2, 0.4, 0.6, 0.2, 0.2, 0.2, 1]
+    // )
     const opacity = interpolate(
       heartAnimation.value,
-      [0, 0.2, 1, 0, 0, 0, 0],
-      [0.2, 0.4, 0.6, 0.2, 0.2, 0.2, 0.2]
+      [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)],
+      [0, 0.9, 0]
+    )
+
+    const scale = interpolate(
+      heartAnimation.value,
+      [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)],
+      [0, 1.3, 0]
     )
 
     return {
-      transform: [{ translateX }, { translateY }],
+      transform: [{ translateX }, { translateY }, { scale }],
       opacity: opacity,
     }
   })
