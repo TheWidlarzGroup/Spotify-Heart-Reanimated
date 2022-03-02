@@ -5,9 +5,6 @@ export const useHeartPress = (
   setIsBgColored: any,
   heartRef: any,
   heartAnimation: any,
-  bigCircleScale: any,
-  smallCircleScale: any,
-  circleOpacity: any,
   heartScale: any,
   startCoords: any
 ) => {
@@ -16,46 +13,25 @@ export const useHeartPress = (
   }
 
   const heartPress = () => {
-    isBgColored ? setIsBgColored(false) : setIsBgColored(true)
     heartRef.current.measure((px: any, py: any) => {
-      if (!isBgColored) {
+      if (isBgColored) {
+        setIsBgColored(false)
+        setHeartPosition(0, 0)
+        heartAnimation.value = 0
+      } else {
+        setIsBgColored(true)
         setHeartPosition(px, py)
 
         heartAnimation.value = withTiming(1, {
           duration: 800,
           easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
         })
-
-        bigCircleScale.value = withTiming(5, {
-          duration: 800,
-          easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
-        })
-
-        smallCircleScale.value = withTiming(4, {
-          duration: 800,
-          easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
-        })
-
-        circleOpacity.value = withTiming(0, {
-          duration: 800,
-          easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
-        })
-
-        heartScale.value = withSequence(
-          withTiming(0.8, { duration: 200 }),
-          withSpring(1, { damping: 0.8, mass: 0.2 })
-        )
-      } else {
-        setHeartPosition(0, 0)
-        heartAnimation.value = 0
-        bigCircleScale.value = 0
-        smallCircleScale.value = 0
-        circleOpacity.value = 1
-        heartScale.value = withSequence(
-          withTiming(0.8, { duration: 200 }),
-          withSpring(1, { damping: 0.8, mass: 0.2 })
-        )
       }
+
+      heartScale.value = withSequence(
+        withTiming(0.8, { duration: 200 }),
+        withSpring(1, { damping: 0.8, mass: 0.2 })
+      )
     })
   }
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { AnimatedViewContainer, StyledAnimatedPath, StyledSvg } from './SingleFlyingHeart.styled'
-import { useSharedValue } from 'react-native-reanimated'
 import { UseFlyingHeartAnimatedStyle } from '../../../../hooks/useFlyingHeartAnimatedStyle'
 import { drawRandomNumberInRange } from '../../utils'
 
@@ -23,7 +22,7 @@ export const SingleFlyingHeart = ({
 }: Props) => {
   const randomXCoord = drawRandomNumberInRange(minValueX, maxValueX)
   const randomYCoord = drawRandomNumberInRange(-120, -200)
-  const finalCoords = useSharedValue({ x: randomXCoord, y: randomYCoord })
+  const finalCoords = { x: randomXCoord, y: randomYCoord }
   const heartSize = drawRandomNumberInRange(40, 50)
 
   const { heartStyle } = UseFlyingHeartAnimatedStyle(

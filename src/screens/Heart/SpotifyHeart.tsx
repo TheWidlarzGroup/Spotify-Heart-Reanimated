@@ -8,9 +8,6 @@ import { FlyingHeartsRenderer } from './components/FlyingHeartsRenderer/FlyingHe
 export const SpotifyHeart = () => {
   const [isBgColored, setIsBgColored] = useState(false)
   const heartAnimation = useSharedValue(0) //od 0 do 1
-  const bigCircleScale = useSharedValue(0)
-  const smallCircleScale = useSharedValue(0)
-  const circleOpacity = useSharedValue(1)
   const startCoords = useSharedValue({ x: 0, y: 0 })
 
   return (
@@ -20,17 +17,9 @@ export const SpotifyHeart = () => {
         setIsBgColored={setIsBgColored}
         startCoords={startCoords}
         heartAnimation={heartAnimation}
-        bigCircleScale={bigCircleScale}
-        smallCircleScale={smallCircleScale}
-        circleOpacity={circleOpacity}
       />
       <FlyingHeartsRenderer startCoords={startCoords} heartAnimation={heartAnimation} />
-      <BouncingCircles
-        bigCircleScale={bigCircleScale}
-        smallCircleScale={smallCircleScale}
-        isBgColored={isBgColored}
-        circleOpacity={circleOpacity}
-      />
+      <BouncingCircles heartAnimation={heartAnimation} isBgColored={isBgColored} />
     </Container>
   )
 }

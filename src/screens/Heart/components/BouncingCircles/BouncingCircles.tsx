@@ -3,23 +3,14 @@ import { AnimatedCircle } from './BouncingCircles.styled'
 import { useBouncingCirclesAnimatedStyle } from '../../../../hooks/useBouncingCIrclesAnimatedStyle'
 
 interface Props {
+  heartAnimation: any
   isBgColored: any
-  bigCircleScale: any
-  smallCircleScale: any
-  circleOpacity: any
 }
 
-export const BouncingCircles = ({
-  isBgColored,
-  bigCircleScale,
-  smallCircleScale,
-  circleOpacity,
-}: Props) => {
+export const BouncingCircles = ({ heartAnimation, isBgColored }: Props) => {
   const { scaleBigCircle, scaleSmallCircle } = useBouncingCirclesAnimatedStyle(
-    isBgColored,
-    bigCircleScale,
-    smallCircleScale,
-    circleOpacity
+    heartAnimation,
+    isBgColored
   )
 
   return (

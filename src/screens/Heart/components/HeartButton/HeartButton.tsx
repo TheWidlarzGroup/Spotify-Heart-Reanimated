@@ -15,9 +15,6 @@ interface Props {
   setIsBgColored: any
   startCoords: any
   heartAnimation: any
-  bigCircleScale: any
-  smallCircleScale: any
-  circleOpacity: any
 }
 
 export const HeartButton = ({
@@ -25,9 +22,6 @@ export const HeartButton = ({
   setIsBgColored,
   startCoords,
   heartAnimation,
-  bigCircleScale,
-  smallCircleScale,
-  circleOpacity,
 }: Props) => {
   const heartRef = useRef<any>(null)
   const heartScale = useSharedValue(1)
@@ -40,9 +34,6 @@ export const HeartButton = ({
     setIsBgColored,
     heartRef,
     heartAnimation,
-    bigCircleScale,
-    smallCircleScale,
-    circleOpacity,
     heartScale,
     startCoords
   )

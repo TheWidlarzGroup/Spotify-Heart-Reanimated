@@ -20,29 +20,19 @@ export const UseFlyingHeartAnimatedStyle = (
   const rangeChunk = 1 / (heartRendersNumber + 1)
 
   const heartStyle = useAnimatedStyle(() => {
-    const cart = finalCoords.value
-    const ball = startCoords.value
+    const destination = finalCoords
+    const start = startCoords.value
+    const input = [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)]
 
-    const animatedPositionY = interpolate(
-      heartAnimation.value,
-      [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)],
-      [0, 0.5, 0.8],
-      { extrapolateLeft: Extrapolation.CLAMP, extrapolateRight: Extrapolation.CLAMP }
-    )
+    const animatedPositionY = interpolate(heartAnimation.value, input, [0, 0.5, 0.8], {
+      extrapolateLeft: Extrapolation.CLAMP,
+      extrapolateRight: Extrapolation.CLAMP,
+    })
 
-    const translateX = calcBezier(animatedPositionY, ball.x, cart.x, cart.x)
-    const translateY = calcBezier(animatedPositionY, ball.y, ball.y, cart.y)
-    const opacity = interpolate(
-      heartAnimation.value,
-      [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)],
-      [0, 0.9, 0]
-    )
-
-    const scale = interpolate(
-      heartAnimation.value,
-      [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)],
-      [0, 1.3, 0]
-    )
+    const translateX = calcBezier(animatedPositionY, start.x, destination.x, destination.x)
+    const translateY = calcBezier(animatedPositionY, start.y, start.y, destination.y)
+    const opacity = interpolate(heartAnimation.value, input, [0, 0.9, 0])
+    const scale = interpolate(heartAnimation.value, input, [0, 1.3, 0])
 
     return {
       transform: [{ translateX }, { translateY }, { scale }],
