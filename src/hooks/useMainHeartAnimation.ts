@@ -32,7 +32,7 @@ export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
     return { fill: fill, stroke: stroke }
   })
 
-  const animatedStyle = useAnimatedStyle(() => {
+  const scaleAnimatedStyle = useAnimatedStyle(() => {
     if (bgColor) {
       return {
         transform: [{ scale: heartScale.value }],
@@ -42,7 +42,7 @@ export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
     }
   })
 
-  const animatedStyle2 = useAnimatedStyle(() => {
+  const shakeAnimatedStyle = useAnimatedStyle(() => {
     if (!bgColor) {
       return {
         transform: [
@@ -61,5 +61,5 @@ export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
     }
   })
 
-  return { animatedProps, animatedStyle, animatedStyle2 }
+  return { animatedProps, scaleAnimatedStyle, shakeAnimatedStyle }
 }
