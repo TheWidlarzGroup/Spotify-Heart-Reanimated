@@ -47,7 +47,7 @@ export const HeartButton = ({
         setHeartPosition(px, py)
 
         heartAnimation.value = withTiming(1, {
-          duration: 1100,
+          duration: 1000,
           easing: Easing.bezier(0.12, 0, 0.39, 0).factory(),
         })
 

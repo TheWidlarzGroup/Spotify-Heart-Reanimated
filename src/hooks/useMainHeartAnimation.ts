@@ -23,7 +23,13 @@ export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
       ['rgba(29, 185, 84, 1)', 'rgba(0, 0, 0, 1)'],
       'RGB'
     )
-    return { fill: fill }
+    const stroke = interpolateColor(
+      progress.value,
+      [0, 1],
+      ['rgba(29, 185, 84, 1)', 'rgba(255, 255, 255, 1)'],
+      'RGB'
+    )
+    return { fill: fill, stroke: stroke }
   })
 
   const animatedStyle = useAnimatedStyle(() => {

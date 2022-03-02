@@ -8,7 +8,7 @@ export const SpotifyHeart = () => {
   const heartRef = useRef(null)
   const [isBgColored, setIsBgColored] = useState(false)
   const heartAnimation = useSharedValue(0) //od 0 do 1
-  const startCoords = useSharedValue({ x: -200, y: 0 })
+  const startCoords = useSharedValue({ x: 0, y: 0 })
   const heartRendersNumber = 3
 
   return (
