@@ -10,7 +10,7 @@ export const AnimatedCircle = styled(Animated.View)<Props>`
   height: 50px;
   border-radius: 25px;
   border-width: ${(props) => props.borderRadius}px;
-  border-color: #1db954;
+  border-color: ${({ theme }) => theme.colors.whiteBorder};
   position: absolute;
   bottom: 43px;
 `

@@ -24,13 +24,13 @@ export const UseFlyingHeartAnimatedStyle = (
     const start = startCoords.value
     const input = [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)]
 
-    const animatedPositionY = interpolate(heartAnimation.value, input, [0, 0.5, 0.8], {
+    const animatedPosition = interpolate(heartAnimation.value, input, [0, 0.5, 0.8], {
       extrapolateLeft: Extrapolation.CLAMP,
       extrapolateRight: Extrapolation.CLAMP,
     })
 
-    const translateX = calcBezier(animatedPositionY, start.x, destination.x, destination.x)
-    const translateY = calcBezier(animatedPositionY, start.y, start.y, destination.y)
+    const translateX = calcBezier(animatedPosition, start.x, destination.x, destination.x)
+    const translateY = calcBezier(animatedPosition, start.y, start.y, destination.y)
     const opacity = interpolate(heartAnimation.value, input, [0, 0.9, 0])
     const scale = interpolate(heartAnimation.value, input, [0, 1.3, 0])
 

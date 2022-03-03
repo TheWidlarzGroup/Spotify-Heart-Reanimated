@@ -7,6 +7,7 @@ import {
   useDerivedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { theme } from '../theme'
 
 export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
   const progress = useDerivedValue(() => {
@@ -20,13 +21,13 @@ export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
     const fill = interpolateColor(
       progress.value,
       [0, 1],
-      ['rgba(29, 185, 84, 1)', 'rgba(0, 0, 0, 1)'],
+      [theme.colors.spotifyGreen, theme.colors.backgroundColor],
       'RGB'
     )
     const stroke = interpolateColor(
       progress.value,
       [0, 1],
-      ['rgba(29, 185, 84, 1)', 'rgba(255, 255, 255, 1)'],
+      [theme.colors.spotifyGreen, theme.colors.whiteBorder],
       'RGB'
     )
     return { fill: fill, stroke: stroke }
