@@ -1,14 +1,17 @@
 import {
   Easing,
+  interpolate,
   interpolateColor,
   useAnimatedProps,
+  useAnimatedStyle,
   useDerivedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { theme } from '../theme'
 
-export const useMainHeartAnimation = (bgColor: string) => {
+export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
   const progress = useDerivedValue(() => {
-    return withTiming(bgColor === 'white' ? 1 : 0, {
+    return withTiming(!bgColor ? 1 : 0, {
       duration: 400,
       easing: Easing.bezier(0.65, 0, 0.35, 1).factory(),
     })
@@ -18,11 +21,46 @@ export const useMainHeartAnimation = (bgColor: string) => {
     const fill = interpolateColor(
       progress.value,
       [0, 1],
-      ['rgba(126, 218, 185, 1)', 'rgba(255, 255, 255,1)'],
+      [theme.colors.spotifyGreen, theme.colors.backgroundColor],
       'RGB'
     )
-    return { fill: fill }
+    const stroke = interpolateColor(
+      progress.value,
+      [0, 1],
+      [theme.colors.spotifyGreen, theme.colors.whiteBorder],
+      'RGB'
+    )
+    return { fill: fill, stroke: stroke }
   })
 
-  return { animatedProps }
+  const scaleAnimatedStyle = useAnimatedStyle(() => {
+    if (bgColor) {
+      return {
+        transform: [{ scale: heartScale.value }],
+      }
+    } else {
+      return {}
+    }
+  })
+
+  const shakeAnimatedStyle = useAnimatedStyle(() => {
+    if (!bgColor) {
+      return {
+        transform: [
+          {
+            rotate:
+              interpolate(
+                heartScale.value,
+                [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4],
+                [0, -25, 0, 25, 0, 25, 0, -25, 0]
+              ) + 'deg',
+          },
+        ],
+      }
+    } else {
+      return {}
+    }
+  })
+
+  return { animatedProps, scaleAnimatedStyle, shakeAnimatedStyle }
 }

@@ -1,15 +1,12 @@
 import React from 'react'
-import { RootNavigator } from './src/navigation/RootNavigator'
-import { NavigationContainer } from '@react-navigation/native'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './src/theme'
+import { SpotifyHeart } from './src/screens/Heart/SpotifyHeart'
 
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
+      <SpotifyHeart />
     </ThemeProvider>
   )
 }
