@@ -1,9 +1,11 @@
 import React from 'react'
 import { SingleFlyingHeart } from '../SingleFlyingHeart/SingleFlyingHeart'
+import Animated from 'react-native-reanimated'
+import { Coords } from '../../../../types/types'
 
 interface Props {
-  startCoords: any
-  heartAnimation: any
+  startCoords: Animated.SharedValue<Coords>
+  heartAnimation: Animated.SharedValue<number>
 }
 
 export const FlyingHeartsRenderer = ({ startCoords, heartAnimation }: Props) => {

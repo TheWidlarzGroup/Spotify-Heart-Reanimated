@@ -1,6 +1,9 @@
-import { interpolate, useAnimatedStyle } from 'react-native-reanimated'
+import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated'
 
-export const useBouncingCirclesAnimatedStyle = (heartAnimation: any, isBgColored: any) => {
+export const useBouncingCirclesAnimatedStyle = (
+  heartAnimation: Animated.SharedValue<number>,
+  isBgColored: boolean
+) => {
   const scaleBigCircle = useAnimatedStyle(() => {
     const opacity = interpolate(heartAnimation.value, [0, 1], [1, 0])
 

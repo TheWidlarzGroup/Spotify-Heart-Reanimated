@@ -4,18 +4,18 @@ import { HeartButton } from './components/HeartButton/HeartButton'
 import { Container } from './SpotifyHeart.styled'
 import { BouncingCircles } from './components/BouncingCircles/BouncingCircles'
 import { FlyingHeartsRenderer } from './components/FlyingHeartsRenderer/FlyingHeartsRenderer'
+import { Coords } from '../../types/types'
 
 export const SpotifyHeart = () => {
-  const [isBgColored, setIsBgColored] = useState(false)
-  const heartAnimation = useSharedValue(0) //od 0 do 1
-  const startCoords = useSharedValue({ x: 0, y: 0 })
+  const [isBgColored, setIsBgColored] = useState<boolean>(false)
+  const heartAnimation = useSharedValue<number>(0) //od 0 do 1
+  const startCoords = useSharedValue<Coords>({ x: 0, y: 0 })
 
   return (
     <Container>
       <HeartButton
         isBgColored={isBgColored}
         setIsBgColored={setIsBgColored}
-        startCoords={startCoords}
         heartAnimation={heartAnimation}
       />
       <FlyingHeartsRenderer startCoords={startCoords} heartAnimation={heartAnimation} />

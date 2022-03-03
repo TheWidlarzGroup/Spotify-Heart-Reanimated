@@ -1,28 +1,34 @@
-import { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated'
+import Animated, { Extrapolation, interpolate, useAnimatedStyle } from 'react-native-reanimated'
+import { Coords } from '../types/types'
 
 export const UseFlyingHeartAnimatedStyle = (
-  finalCoords: any,
-  startCoords: any,
-  heartAnimation: any,
+  finalCoords: Coords,
+  startCoords: Animated.SharedValue<Coords>,
+  heartAnimation: Animated.SharedValue<number>,
   index = 0,
   heartRendersNumber: number
 ) => {
-  const calcBezier = (interpolatedValue: any, p0: any, p1: any, p2: any) => {
+  const calcBezier = (
+    interpolatedValue: number,
+    point0: number,
+    point1: number,
+    point2: number
+  ) => {
     'worklet'
 
     return Math.round(
-      Math.pow(1 - interpolatedValue, 2) * p0 +
-        2 * (1 - interpolatedValue) * interpolatedValue * p1 +
-        Math.pow(interpolatedValue, 2) * 1.3 * p2
+      Math.pow(1 - interpolatedValue, 2) * point0 +
+        2 * (1 - interpolatedValue) * interpolatedValue * point1 +
+        Math.pow(interpolatedValue, 2) * 1.3 * point2
     )
   }
 
   const rangeChunk = 1 / (heartRendersNumber + 1)
 
   const heartStyle = useAnimatedStyle(() => {
-    const destination = finalCoords
-    const start = startCoords.value
-    const input = [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)]
+    const destination: Coords = finalCoords
+    const start: Coords = startCoords.value
+    const input: number[] = [rangeChunk * index, rangeChunk * (index + 1), rangeChunk * (index + 2)]
 
     const animatedPosition = interpolate(heartAnimation.value, input, [0, 0.5, 0.8], {
       extrapolateLeft: Extrapolation.CLAMP,

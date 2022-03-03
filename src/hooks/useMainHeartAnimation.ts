@@ -1,4 +1,4 @@
-import {
+import Animated, {
   Easing,
   interpolate,
   interpolateColor,
@@ -9,9 +9,12 @@ import {
 } from 'react-native-reanimated'
 import { theme } from '../theme'
 
-export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
+export const useMainHeartAnimation = (
+  isBgColored: boolean,
+  heartScale: Animated.SharedValue<number>
+) => {
   const progress = useDerivedValue(() => {
-    return withTiming(!bgColor ? 1 : 0, {
+    return withTiming(isBgColored ? 0 : 1, {
       duration: 400,
       easing: Easing.bezier(0.65, 0, 0.35, 1).factory(),
     })
@@ -34,7 +37,7 @@ export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
   })
 
   const scaleAnimatedStyle = useAnimatedStyle(() => {
-    if (bgColor) {
+    if (isBgColored) {
       return {
         transform: [{ scale: heartScale.value }],
       }
@@ -44,7 +47,7 @@ export const useMainHeartAnimation = (bgColor: boolean, heartScale: any) => {
   })
 
   const shakeAnimatedStyle = useAnimatedStyle(() => {
-    if (!bgColor) {
+    if (!isBgColored) {
       return {
         transform: [
           {

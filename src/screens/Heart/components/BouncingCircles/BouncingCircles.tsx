@@ -1,10 +1,11 @@
 import React from 'react'
 import { AnimatedCircle } from './BouncingCircles.styled'
 import { useBouncingCirclesAnimatedStyle } from '../../../../hooks/useBouncingCIrclesAnimatedStyle'
+import Animated from 'react-native-reanimated'
 
 interface Props {
-  heartAnimation: any
-  isBgColored: any
+  heartAnimation: Animated.SharedValue<number>
+  isBgColored: boolean
 }
 
 export const BouncingCircles = ({ heartAnimation, isBgColored }: Props) => {

@@ -2,10 +2,12 @@ import React from 'react'
 import { AnimatedViewContainer, StyledAnimatedPath, StyledSvg } from './SingleFlyingHeart.styled'
 import { UseFlyingHeartAnimatedStyle } from '../../../../hooks/useFlyingHeartAnimatedStyle'
 import { drawRandomNumberInRange } from '../../utils'
+import Animated from 'react-native-reanimated'
+import { Coords } from '../../../../types/types'
 
 interface Props {
-  startCoords: any
-  heartAnimation: any
+  startCoords: Animated.SharedValue<Coords>
+  heartAnimation: Animated.SharedValue<number>
   minValueX: number
   maxValueX: number
   index?: number
