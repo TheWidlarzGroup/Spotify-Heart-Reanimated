@@ -20,6 +20,7 @@ export const SpotifyHeart = () => {
       />
       <FlyingHeartsRenderer startCoords={startCoords} heartAnimation={heartAnimation} />
       <BouncingCircles heartAnimation={heartAnimation} isBgColored={isBgColored} />
+
     </Container>
   )
 }
