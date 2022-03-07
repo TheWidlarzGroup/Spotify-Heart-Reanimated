@@ -8,7 +8,7 @@ import { Coords } from '../../types/types'
 
 export const SpotifyHeart = () => {
   const [isBgColored, setIsBgColored] = useState<boolean>(false)
-  const heartAnimation = useSharedValue<number>(0) //od 0 do 1
+  const heartAnimation = useSharedValue<number>(0)
   const startCoords = useSharedValue<Coords>({ x: 0, y: 0 })
 
   return (
