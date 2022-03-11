@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useRef } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import Animated, { useSharedValue } from 'react-native-reanimated'
 import {
   ScaleViewContainer,
@@ -17,24 +17,17 @@ interface Props {
 }
 
 export const HeartButton = ({ isBgColored, setIsBgColored, heartAnimation }: Props) => {
-  const heartRef = useRef<Animated.View>(null)
-  const heartScale = useSharedValue<number>(1)
+  const heartTransform = useSharedValue<number>(1)
   const { animatedProps, scaleAnimatedStyle, shakeAnimatedStyle } = useMainHeartAnimation(
     isBgColored,
-    heartScale
+    heartTransform
   )
-  const { heartPress } = useHeartPress(
-    isBgColored,
-    setIsBgColored,
-    heartRef,
-    heartAnimation,
-    heartScale
-  )
+  const { heartPress } = useHeartPress(isBgColored, setIsBgColored, heartAnimation, heartTransform)
 
   return (
     <StyledHeartButton onPress={heartPress}>
-      <ShakeViewContainer ref={heartRef} style={[shakeAnimatedStyle]}>
-        <ScaleViewContainer ref={heartRef} style={[scaleAnimatedStyle]}>
+      <ShakeViewContainer style={[shakeAnimatedStyle]}>
+        <ScaleViewContainer style={[scaleAnimatedStyle]}>
           <StyledSvg>
             <StyledAnimatedPath animatedProps={animatedProps} />
           </StyledSvg>

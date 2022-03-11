@@ -1,12 +1,11 @@
 import Animated, { Easing, withSequence, withSpring, withTiming } from 'react-native-reanimated'
-import { Dispatch, RefObject, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 
 export const useHeartPress = (
   isBgColored: boolean,
   setIsBgColored: Dispatch<SetStateAction<boolean>>,
-  heartRef: RefObject<Animated.View>,
   heartAnimation: Animated.SharedValue<number>,
-  heartScale: Animated.SharedValue<number>
+  heartTransform: Animated.SharedValue<number>
 ) => {
   const heartPress = () => {
     if (isBgColored) {
@@ -20,7 +19,7 @@ export const useHeartPress = (
       })
     }
 
-    heartScale.value = withSequence(
+    heartTransform.value = withSequence(
       withTiming(0.8, { duration: 200 }),
       withSpring(1, { damping: 0.8, mass: 0.2 })
     )

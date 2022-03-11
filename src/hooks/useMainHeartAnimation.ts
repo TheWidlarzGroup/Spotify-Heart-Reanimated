@@ -11,7 +11,7 @@ import { theme } from '../theme'
 
 export const useMainHeartAnimation = (
   isBgColored: boolean,
-  heartScale: Animated.SharedValue<number>
+  heartTransform: Animated.SharedValue<number>
 ) => {
   const progress = useDerivedValue(() => {
     return withTiming(isBgColored ? 0 : 1, {
@@ -39,7 +39,7 @@ export const useMainHeartAnimation = (
   const scaleAnimatedStyle = useAnimatedStyle(() => {
     if (isBgColored) {
       return {
-        transform: [{ scale: heartScale.value }],
+        transform: [{ scale: heartTransform.value }],
       }
     } else {
       return {}
@@ -53,7 +53,7 @@ export const useMainHeartAnimation = (
           {
             rotate:
               interpolate(
-                heartScale.value,
+                heartTransform.value,
                 [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4],
                 [0, -25, 0, 25, 0, 25, 0, -25, 0]
               ) + 'deg',

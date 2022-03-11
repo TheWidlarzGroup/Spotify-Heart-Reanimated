@@ -53,7 +53,4 @@ export const StyledAnimatedPath = styled(AnimatedPath).attrs((props: AnimatedPat
 }))`
   width: 50px;
   height: 50px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
 `

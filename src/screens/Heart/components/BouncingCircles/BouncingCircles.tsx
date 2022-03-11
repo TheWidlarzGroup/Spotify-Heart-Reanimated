@@ -16,8 +16,8 @@ export const BouncingCircles = ({ heartAnimation, isBgColored }: Props) => {
 
   return (
     <>
-      <AnimatedCircle borderRadius={1.5} style={[scaleBigCircle]} />
-      <AnimatedCircle borderRadius={5} style={[scaleSmallCircle]} />
+      <AnimatedCircle borderWidth={1.5} style={[scaleBigCircle]} />
+      <AnimatedCircle borderWidth={5} style={[scaleSmallCircle]} />
     </>
   )
 }
