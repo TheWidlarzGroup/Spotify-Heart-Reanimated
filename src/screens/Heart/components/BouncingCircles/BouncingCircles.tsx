@@ -9,15 +9,15 @@ interface Props {
 }
 
 export const BouncingCircles = ({ heartAnimation, isBgColored }: Props) => {
-  const { scaleBigCircle, scaleSmallCircle } = useBouncingCirclesAnimatedStyle(
+  const { animateBigCircle, animateSmallCircle } = useBouncingCirclesAnimatedStyle(
     heartAnimation,
     isBgColored
   )
 
   return (
     <>
-      <AnimatedCircle borderWidth={1.5} style={[scaleBigCircle]} />
-      <AnimatedCircle borderWidth={5} style={[scaleSmallCircle]} />
+      <AnimatedCircle borderWidth={1.5} style={[animateBigCircle]} />
+      <AnimatedCircle borderWidth={5} style={[animateSmallCircle]} />
     </>
   )
 }

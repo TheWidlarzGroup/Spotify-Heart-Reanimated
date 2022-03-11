@@ -4,12 +4,13 @@ export const useBouncingCirclesAnimatedStyle = (
   heartAnimation: Animated.SharedValue<number>,
   isBgColored: boolean
 ) => {
-  const scaleBigCircle = useAnimatedStyle(() => {
+  const animateBigCircle = useAnimatedStyle(() => {
     const opacity = interpolate(heartAnimation.value, [0, 1], [1, 0])
+    const scale = interpolate(heartAnimation.value, [0, 1], [0, 5])
 
     if (isBgColored) {
       return {
-        transform: [{ scale: interpolate(heartAnimation.value, [0, 1], [0, 5]) }],
+        transform: [{ scale: scale }],
         opacity: opacity,
       }
     } else {
@@ -17,12 +18,13 @@ export const useBouncingCirclesAnimatedStyle = (
     }
   })
 
-  const scaleSmallCircle = useAnimatedStyle(() => {
+  const animateSmallCircle = useAnimatedStyle(() => {
     const opacity = interpolate(heartAnimation.value, [0, 1], [1, 0])
+    const scale = interpolate(heartAnimation.value, [0, 1], [0, 4])
 
     if (isBgColored) {
       return {
-        transform: [{ scale: interpolate(heartAnimation.value, [0, 1], [0, 4]) }],
+        transform: [{ scale: scale }],
         opacity: opacity,
       }
     } else {
@@ -30,5 +32,5 @@ export const useBouncingCirclesAnimatedStyle = (
     }
   })
 
-  return { scaleBigCircle, scaleSmallCircle }
+  return { animateBigCircle, animateSmallCircle }
 }
