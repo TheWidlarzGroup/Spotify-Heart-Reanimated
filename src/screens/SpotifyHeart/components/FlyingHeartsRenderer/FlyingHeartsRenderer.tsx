@@ -21,6 +21,7 @@ export const FlyingHeartsRenderer = ({ startCoords, heartAnimation }: Props) => 
       />
       {[...Array(heartRendersNumber)].map((_, index) => (
         <SingleFlyingHeart
+          key={index}
           startCoords={startCoords}
           heartAnimation={heartAnimation}
           minValueX={70}
@@ -45,6 +46,7 @@ export const FlyingHeartsRenderer = ({ startCoords, heartAnimation }: Props) => 
       />
       {[...Array(heartRendersNumber)].map((_, index) => (
         <SingleFlyingHeart
+          key={index}
           startCoords={startCoords}
           heartAnimation={heartAnimation}
           minValueX={-100}
