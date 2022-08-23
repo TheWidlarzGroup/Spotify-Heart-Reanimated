@@ -5,27 +5,9 @@ Create your own Spotify Heart with React Native, Typescript and Reanimated 2!
 The repository contains all the code of the application that we are building in this article:
 --
 
-### Starter instalation
+### Animation preview
 
-Do this part if you want to code along with the article from beginning
-
-clone the repo
-
-```bash
---
-```
-
-then
-
-```bash
---
-```
-
-and if you develop on iOS simulator:
-
-```bash
-cd ios && pod install
-```
+![Spotify Heart](./src/assets/animation.gif)
 
 ### Finished App Installation
 
